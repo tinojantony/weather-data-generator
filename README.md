@@ -95,7 +95,10 @@ Derive a regression equation based on the history data and predict the current v
 
 ##Performance testing results
 - Number of records generated for 10 stations : **87600**
-- Time to generate 87600 records(on 2.8GHz machine): **566 msec** 
+- Time to generate 87600 records              : **566 msec** 
+
+(Testing done on Intel Core i5 - 2.8GHz machine)
+
  
 
 
