@@ -1,0 +1,53 @@
+{
+	"JANUARY": {
+		"minTemp": 17.8,
+		"maxTemp": 28.9
+	},
+	"FEBRUARY": {
+		"minTemp": 18.9,
+		"maxTemp": 28.9
+	},
+	"MARCH": {
+		"minTemp": 17.8,
+		"maxTemp": 28.9
+	},
+	"APRIL": {
+		"minTemp": 17.8,
+		"maxTemp": 28.9
+	},
+	"MAY": {
+		"minTemp": 17.8,
+		"maxTemp": 28.9
+	},
+	"JUNE": {
+		"minTemp": 17.8,
+		"maxTemp": 28.9
+	},
+	"JULY": {
+		"minTemp": 18.9,
+		"maxTemp": 28.9
+	},
+	"AUGUST": {
+		"minTemp": 17.8,
+		"maxTemp": 28.9
+	},
+	"SEPTEMBER": {
+		"minTemp": 17.8,
+		"maxTemp": 28.9
+	},
+	"OCTOBER": {
+		"minTemp": 17.8,
+		"maxTemp": 28.9
+	},
+	"NOVEMBER": {
+		"minTemp": 17.8,
+		"maxTemp": 28.9
+	},
+	"DECEMBER": {
+		"minTemp": 17.8,
+		"maxTemp": 28.9
+	}
+
+
+
+}

@@ -1,0 +1,53 @@
+{
+	"cloudProbabilities": [{
+		"month": "JANUARY",
+		"lowerLimit": 0,
+		"upperLimit": 0.2
+	}, {
+		"month": "FEBRUARY",
+		"lowerLimit": 0,
+		"upperLimit": 0.2
+	}, {
+		"month": "MARCH",
+		"lowerLimit": 0,
+		"upperLimit": 0.2
+	}, {
+		"month": "APRIL",
+		"lowerLimit": 0,
+		"upperLimit": 0.3
+	}, {
+		"month": "MAY",
+		"lowerLimit": 0,
+		"upperLimit": 0.3
+	}, {
+		"month": "JUNE",
+		"lowerLimit": 0.5,
+		"upperLimit": 0.9
+	}, {
+		"month": "JULY",
+		"lowerLimit": 0.7,
+		"upperLimit": 0.9
+	}, {
+		"month": "AUGUST",
+		"lowerLimit": 0.7,
+		"upperLimit": 0.9
+	}, {
+		"month": "SEPTEMBER",
+		"lowerLimit": 0.5,
+		"upperLimit": 0.9
+	}, {
+		"month": "OCTOBER",
+		"lowerLimit": 0.3,
+		"upperLimit": 0.5
+	}, {
+		"month": "NOVEMBER",
+		"lowerLimit": 0.6,
+		"upperLimit": 0.9
+	}, {
+		"month": "DECEMBER",
+		"lowerLimit": 0.5,
+		"upperLimit": 0.9
+	}]
+}
+
+
