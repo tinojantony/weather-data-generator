@@ -65,7 +65,9 @@ This approach is a combination of approach 1 and 2.
 * __Step 7__ - Determine the weather conditions based on the probability of monsoon clouds and actual temperature calculated in 
     step 6. 
     - The graph below represents the weather condition based on probability of monsoon clouds.
-    -![Graph-Weather condition - Cloud probabilty mapping](/images/Weather Condition and Cloud Probability.png) 
+ 
+    -![Graph-Weather condition - Cloud probabilty mapping](/images/Weather Condition and Cloud Probability.png)
+
     - If the actual temperature calculated in step 6 is less than 0 then weather condition is 'Snowy'
 * __Step 8__ - Calculation of atmospheric pressure in hPa.
   - Atmospheric pressure is considered as a dependent variable of Elevation, Temperature and relative humidity. 
