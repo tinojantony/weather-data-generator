@@ -91,6 +91,14 @@ Derive a regression equation based on the history data and predict the current v
 1. Change directory to project base folder and run *java -jar WeatherGenerator.jar* 
 2. Start date of the clock can be send as a command line argument in format YYYY-MM-DD
 
+##Number of test cases successfully executed : 77
+
+##Performance testing results
+- Number of records generated for 10 stations : **87600**
+- Time to generate 87600 records(on 2.8GHz machine): **566 msec** 
+ 
+
+
 ##Future enhancements
 * Due to time limitation, the relative humidity calculation is pending and can be included later
 * The monsoon cloud prob can be generated automatically(Instead of manually configuring) by mathematical modelling of cloud movement
