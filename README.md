@@ -91,7 +91,7 @@ Derive a regression equation based on the history data and predict the current v
 1. Change directory to project base folder and run *java -jar WeatherGenerator.jar* 
 2. Start date of the clock can be send as a command line argument in format YYYY-MM-DD
 
-##Number of test cases successfully executed : 77
+##Number of unit test cases successfully executed : 77
 
 ##Performance testing results
 - Number of records generated for 10 stations : **87600**
