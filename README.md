@@ -30,8 +30,7 @@ Derive a regression equation based on the history data and predict the current v
  - The weather stations which come inside the circle can be assumed as affected by the monsoon clouds. 
  - Similarly we can model the movement of cold waves occur in North India during winter season.
  
-###Approach 3 - 
-This approach is a combination of approach 1 and 2. 
+###Approach 3 (Implemented Approach - combination of approach 1 and 2) 
 
 * __Step 1__-
  * __Step 1a__ - Retrieve the montlhy average minimum and monthly average maximum of temperature and humidity of required weather stations from a reliable source. Load the data to model.
