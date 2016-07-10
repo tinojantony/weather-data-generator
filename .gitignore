@@ -14,3 +14,8 @@
 # Maven
 log/
 target/
+
+#Project specific
+config/
+WeatherGenerator.jar
+weather_data.txt
