@@ -1,51 +1,51 @@
 {
 	"temperatures": [{
 		"month": "JANUARY",
-		"minTemp": 10,
-		"maxTemp": 30
+		"minTemp": 7.6,
+		"maxTemp": 21
 	}, {
 		"month": "FEBRUARY",
-		"minTemp": 17.8,
-		"maxTemp": 28.9
+		"minTemp": 10.1,
+		"maxTemp": 23.5
 	}, {
 		"month": "MARCH",
-		"minTemp": 17.8,
-		"maxTemp": 28.9
+		"minTemp": 15.3,
+		"maxTemp": 29.2
 	}, {
 		"month": "APRIL",
-		"minTemp": 25.8,
-		"maxTemp": 37.9
+		"minTemp": 21.6,
+		"maxTemp": 36
 	}, {
 		"month": "MAY",
-		"minTemp": 26.8,
-		"maxTemp": 37.9
+		"minTemp": 25.8,
+		"maxTemp": 39.2
 	}, {
 		"month": "JUNE",
-		"minTemp": 17.8,
-		"maxTemp": 28.9
+		"minTemp": 27.8,
+		"maxTemp": 38.9
 	}, {
 		"month": "JULY",
-		"minTemp": 17.8,
-		"maxTemp": 28.9
+		"minTemp": 26.8,
+		"maxTemp": 34.9
 	}, {
 		"month": "AUGUST",
-		"minTemp": 17.8,
-		"maxTemp": 28.9
+		"minTemp": 26.3,
+		"maxTemp": 33.9
 	}, {
 		"month": "SEPTEMBER",
-		"minTemp": 17.8,
-		"maxTemp": 28.9
+		"minTemp": 24.8,
+		"maxTemp": 34.2
 	}, {
 		"month": "OCTOBER",
-		"minTemp": 17.8,
-		"maxTemp": 28.9
+		"minTemp": 19.8,
+		"maxTemp": 33
 	}, {
 		"month": "NOVEMBER",
-		"minTemp": 17.8,
-		"maxTemp": 28.9
+		"minTemp": 13.2,
+		"maxTemp": 28.3
 	}, {
 		"month": "DECEMBER",
-		"minTemp": 17.8,
-		"maxTemp": 28.9
+		"minTemp": 8.5,
+		"maxTemp": 22.9
 	}]
 }
