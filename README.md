@@ -41,7 +41,7 @@ Derive a regression equation based on the history data and predict the current v
  * __Step 1a__ - Retrieve the monthly average minimum and monthly average maximum of temperature and humidity of required weather stations from a reliable source. Load the data to model.
  * __Step 1b__ - As the mathematical modelling of cloud movement (mentioned in approach 2) will take multiple days for implementation,the probability range of monsoon clouds (each month) in different stations are configured, based on the movement pattern of monsoon clouds.
  * __Step 1c__ - Load the lookup table of pressure and altitide- represents the pressure variation with respect to altitude above sea level.
-* __Step 2__ - Initialize the clock with the command line argument. Date should be given as command line argument in the format 'YYYY-MM-DD'. The clock will be incremented by **1 hour**
+* __Step 2__ -  The clock will be incremented by **1 hour**
 * __Step 3__ - Generate RANDOM Monsoon Cloud Probability at each weather stations within configured range for the month
 
  - Every hour generate a random cloud probabaility within the monthly range.
