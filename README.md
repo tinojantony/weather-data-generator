@@ -74,7 +74,7 @@ Derive a regression equation based on the history data and predict the current v
   - The elevation in hectofeet(1 hectofeet=100 feets)at a weather station is looked up in the table to obtain the atmospheric pressure in hPa.
 
  
-##Architectural Design Considerations
+##Architectural Design Considerations Taken Care
 * Ability to generate weather data in realistic fashion by taking into account dynamic factors like monsoon clouds and cold waves which varies across seasons and geography.
 * Ability to add new weather stations and its configuration data without rebuilding the code.
 * Fine grained control of weather influencing parameters of each station across seasons
@@ -92,17 +92,22 @@ Derive a regression equation based on the history data and predict the current v
 2. Start date of the clock can be send as a command line argument in format YYYY-MM-DD
 
 ##Number of unit test cases successfully executed : 77
+Configuring unit test data (Station named TEST is added with dummy weather data) :
+- Under [WeatherGenerator/src/main/config folder], edit [test_stations.json] file
+- Under [WeatherGenerator/src/main/config/weather/TEST] folder, edit [temperature.json] file
+- Under [WeatherGenerator/src/main/config/cloudProbability] folder, edit [TEST.json] file
 
 ##Performance testing results
 - Number of records generated for 10 stations : **87600**
 - Time to generate 87600 records              : **566 msec** 
 
-(Testing done on Intel Core i5 - 2.8GHz machine)
+(Testing done on Intel Core i5 - 2.8GHz )
 
  
 
 
 ##Future enhancements
 * Due to time limitation, the relative humidity calculation is pending and can be included later
-* The monsoon cloud prob can be generated automatically(Instead of manually configuring) by mathematical modelling of cloud movement
+* Due to time limitation, adjustment of atmospheric pressure based on temperature and humidiy is pending.
+* The monsoon cloud probability can be generated automatically(instead of manually configuring) by mathematical modelling of cloud movement
 * Other weather influencing parameters like cold waves from central asia can also be incorporated in the model
