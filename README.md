@@ -97,7 +97,7 @@ Configuring unit test data (Station named TEST is added with dummy weather data)
 - Under [WeatherGenerator/src/main/config/weather/TEST] folder, edit [temperature.json] file
 - Under [WeatherGenerator/src/main/config/cloudProbability] folder, edit [TEST.json] file
 
-##Performance testing results
+##Performance testing results (1 year data generation)
 - Number of records generated for 10 stations : **87600**
 - Time to generate 87600 records              : **566 msec** 
 
