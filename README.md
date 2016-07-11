@@ -37,7 +37,7 @@ Derive a regression equation based on the history data and predict the current v
 
 ###Approach 3 (Implemented Approach - combination of approach 1 and 2) 
 
-* __Step 1__- Loading historic data and static configs
+* __Step 1__- Loading historic data(monthly averages) and static configs
  * __Step 1a__ - Retrieve the monthly average minimum and monthly average maximum of temperature and humidity of required weather stations from a reliable source. Load the data to model.
  * __Step 1b__ - As the mathematical modelling of cloud movement (mentioned in approach 2) will take multiple days for implementation,the probability range of monsoon clouds (each month) in different stations are configured, based on the movement pattern of monsoon clouds.
  * __Step 1c__ - Load the lookup table of pressure and altitide- represents the pressure variation with respect to altitude above sea level.
