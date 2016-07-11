@@ -43,7 +43,7 @@ Derive a regression equation based on the history data and predict the current v
  * __Step 1c__ - Load the lookup table of pressure and altitide- represents the pressure variation with respect to altitude above sea level.
 * __Step 2__ -  Start the clock. The clock will be incremented by **1 hour**.
 
-Every hour, run steps 3 - 8 for every station.
+ - Every hour, run steps 3 - 8 for every station.
 * __Step 3__ - Generate RANDOM Monsoon Cloud Probability at each weather stations within configured range for the month
 
  - Every hour generate a random cloud probabaility within the monthly range.
