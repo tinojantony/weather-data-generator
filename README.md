@@ -4,7 +4,7 @@ Indian subcontinent - mainly India and Sri Lanka.
 Size of area considered will be approximately half the size of Australia.
 #####Factors influencing the climate of area considered
 Indian subcontinent is surrounded by Indian ocean and it has Western Ghats(mountain) and Himalayas. Due to this geographical positioning, proximity to ocean and the topology varaiations, two monsoon monsoon seasons - 
-Southwest monsoon and Northeast monsoon occur. These monsoons are the main dynamic factor incfluencing the climate of Indian subcontinent.
+Southwest monsoon and Northeast monsoon occur. These monsoons are the main dynamic factors incfluencing the climate of Indian subcontinent.
 ##Approaches considered for solving the problem
 ###Approach 1 - Based on historical data
 Retrieve the historical weather data of past 10 years from a reliable source for the selected weather stations. 
@@ -16,7 +16,7 @@ Derive a regression equation based on the history data and predict the current v
 
 ######Cons:
 * As the problem statement clearly mention to consider geographic,topographic,oceanographic factors,the assumption is that this is **not** the expected approach for problem resolution
-* The model will not incorporate the requirements of considering the dynamic factors which evolves over time
+* The model will not incorporate the requirements of considering the dynamic factors which evolves over time based on geography
 
 
 ###Approach 2 - Mathematical modelling of weather data
@@ -27,20 +27,24 @@ Derive a regression equation based on the history data and predict the current v
  - The area under which the monsoon clouds are present is represented as a circle in the above diagram. 
  - The cloud (circle)movement path towards Northeast India is indicated as red lines.
  - **The approximate line equation of the cloud movement path, from the centre of circle to Himalayas is derived .**
- - The weather stations which come inside the circle can be assumed as affected by the monsoon clouds. 
+ - The weather stations which come inside/near the circle can be assumed as affected by the monsoon clouds. 
  - Similarly we can model the movement of cold waves occur in North India during winter season.
  
+
+######Cons:
+- The line equation (center of circle to Himalayas) has a dependency on Time. So the final derived equation will be a complex quadratic equation which depends on (lattitude, longitude, month of the year). 
+
+
 ###Approach 3 (Implemented Approach - combination of approach 1 and 2) 
 
 * __Step 1__-
- * __Step 1a__ - Retrieve the montlhy average minimum and monthly average maximum of temperature and humidity of required weather stations from a reliable source. Load the data to model.
- * __Step 1b__ - Load the probabilty range of clouds for different weather stations based on the movement pattern of monsoon clouds.
+ * __Step 1a__ - Retrieve the monthly average minimum and monthly average maximum of temperature and humidity of required weather stations from a reliable source. Load the data to model.
+ * __Step 1b__ - As the mathematical modelling of cloud movement will take multiple days for implementation(mentioned in approach 2),the probability range of monsoon clouds in different stations are configured, based on the movement pattern of monsoon clouds.
  * __Step 1c__ - Load the lookup table of pressure and altitide- represents the pressure variation with respect to altitude above sea level.
 * __Step 2__ - Initialize the clock with the command line argument. Date should be given as command line argument in the format 'YYYY-MM-DD'. The clock will be incremented by 1 hour.
-* __Step 3__ - Calculate monsoon cloud probability at different weather stations 
+* __Step 3__ - Generate RANDOM Monsoon Cloud Probability at each weather stations within configured range for the month
 
- - As the mathematical modelling of cloud movement will take multiple days for implementation(mentioned in approach 2),the probability range of monsoon clouds in different stations are configured, based on the movement pattern of monsoon clouds. 
- - Generate a random value of cloud probabaility within the configured range during every hour
+ - Every hour generate a random cloud probabaility within the monthly range.
  - Example for probability range configuration of monsoon clouds - In Kochi(COK) the monsoon clouds will be present during the months    June - September, so the probability of clouds in Kochi can be configured between 0.5 to 1 during rainy season and 0 to 0.5 during    other months.
 * __Step 4__ - Calculate temperature based on the time(hour) of the day. 
 
