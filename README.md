@@ -39,9 +39,9 @@ Derive a regression equation based on the history data and predict the current v
 
 * __Step 1__-
  * __Step 1a__ - Retrieve the monthly average minimum and monthly average maximum of temperature and humidity of required weather stations from a reliable source. Load the data to model.
- * __Step 1b__ - As the mathematical modelling of cloud movement will take multiple days for implementation(mentioned in approach 2),the probability range of monsoon clouds in different stations are configured, based on the movement pattern of monsoon clouds.
+ * __Step 1b__ - As the mathematical modelling of cloud movement (mentioned in approach 2) will take multiple days for implementation,the probability range of monsoon clouds (each month) in different stations are configured, based on the movement pattern of monsoon clouds.
  * __Step 1c__ - Load the lookup table of pressure and altitide- represents the pressure variation with respect to altitude above sea level.
-* __Step 2__ - Initialize the clock with the command line argument. Date should be given as command line argument in the format 'YYYY-MM-DD'. The clock will be incremented by 1 hour.
+* __Step 2__ - Initialize the clock with the command line argument. Date should be given as command line argument in the format 'YYYY-MM-DD'. The clock will be incremented by **1 hour**
 * __Step 3__ - Generate RANDOM Monsoon Cloud Probability at each weather stations within configured range for the month
 
  - Every hour generate a random cloud probabaility within the monthly range.
@@ -54,8 +54,8 @@ Derive a regression equation based on the history data and predict the current v
   - From the graph, the slope m1 and intercept c1 are calculated for the time between 4AM and 1PM during which temperature is rising.
   - The slope m2 and intercept c2 are calculated for the time between 1PM and 4AM(next day) during which temperature is reducing.
   - The equation of 2 lines are obtained using the above values.
-  - Equation for time between 4Am and 1PM - y=m1*x+c1
-  - Equation for time between 1PM and 4AM(next day) - y=m2*x+c2
+  - Equation for time between 4Am and 1PM : y=m1*x+c1
+  - Equation for time between 1PM and 4AM(next day) :  y=m2*x+c2
   - The temperature values at any time of day can be calculated by substituting the time in 24 hour format as x. For calculating the temperature between 12AM to 4AM(next day), we have to add 24 to the hour.  The y value thus calculated using the equations give the temperature at that particular time of the day.
 
 * __Step 5__ - Calculate temperature adjustment due to clouds
