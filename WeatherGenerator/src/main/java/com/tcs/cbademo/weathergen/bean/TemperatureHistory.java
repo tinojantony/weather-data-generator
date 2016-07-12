@@ -10,12 +10,12 @@ public class TemperatureHistory {
 
 	List <TemperatureRange> temperatures = new ArrayList <TemperatureRange>();
 
-	public List<TemperatureRange> getTemperatures() {
+	public List<TemperatureRange> getMonthlyTemperatureRangeList() {
 		return temperatures;
 	}
 
-	public void setTemperatures(List<TemperatureRange> temperatures) {
-		this.temperatures = temperatures;
+	public void setMonthlyTemperatureRangeList(List<TemperatureRange> montlhyTempRangeList) {
+		this.temperatures = montlhyTempRangeList;
 	}
 
 }

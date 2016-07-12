@@ -15,7 +15,7 @@ import com.tcs.cbademo.weathergen.WeatherGenerator;
  */
 public class FileAppender {
 
-	PrintWriter writer;
+	private PrintWriter writer;
 	
 	private final static Logger logger = Logger.getLogger(FileAppender.class);
 	

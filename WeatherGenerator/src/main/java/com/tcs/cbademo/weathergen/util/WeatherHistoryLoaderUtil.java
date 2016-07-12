@@ -49,6 +49,11 @@ public class WeatherHistoryLoaderUtil {
 		
 	}
 
+	/**
+	 * Get temperature history (avg max and avg min) for every month for the station 
+	 * @param configFilePath temperature config file path
+	 * @return HashMap of Months -> TemperatureRange
+	 */
 	public static HashMap <Months,TemperatureRange> loadTemperatureHistForStation(String configFilePath) {
 
 		JsonReader reader = null;
@@ -56,26 +61,40 @@ public class WeatherHistoryLoaderUtil {
 		
 		try {
 			reader = new JsonReader(new FileReader(configFilePath));
-			TemperatureHistory temperatureHistory = gson.fromJson(reader, TemperatureHistory.class);
-			for (TemperatureRange monthRange: temperatureHistory.getTemperatures()) {
-				tempratureHistoryByMonthHash.put(monthRange.getMonth(), monthRange);
+			
+			// Read from temperature.json file.
+			TemperatureHistory temperatureHistoryForYear = gson.fromJson(reader, TemperatureHistory.class);
+			
+			// Iterate through temperature history every month 
+			for (TemperatureRange tempratureRangeForMonth : temperatureHistoryForYear.getMonthlyTemperatureRangeList()) {
+				
+				// Skip any month if month name is wrongly configured.
+				if (tempratureRangeForMonth.getMonthName() != null ) {
+					tempratureHistoryByMonthHash.put(tempratureRangeForMonth.getMonthName(), tempratureRangeForMonth);
+				}
 			}
 			
 		} catch (FileNotFoundException e) {
 			logger.error("Failed loading config file:"+configFilePath);
 		} catch (Exception all){
+			// Catching all exception to skip configuration read for the station
 			logger.error("Failed loading config file:"+configFilePath+" Reason:"+all.getMessage());
 		} finally {
 			try {
 				if (reader != null)
 					reader.close();
 			} catch (IOException e) {
-				logger.error("IOException:"+e.getMessage());
+				logger.error("IOException in loadTemperatureHistForStation():"+e.getMessage());
 			}
 		}
 		return tempratureHistoryByMonthHash;
 	}
 
+	/**
+	 * Load monsoon cloud probability (lowerLimit and upperLimit) for every month for the station 
+	 * @param configFilePath - File path to read the config file
+	 * @return HashMap which maps from Months -> CloudProbablityRange
+	 */
 	public static HashMap <Months,CloudProbablityRange> loadCloudProbabilityForStation(String configFilePath) {
 
 		JsonReader reader = null;
@@ -83,13 +102,20 @@ public class WeatherHistoryLoaderUtil {
 		
 		try {
 			reader = new JsonReader(new FileReader(configFilePath));
-			CloudProbabilities cloudProbablities = gson.fromJson(reader, CloudProbabilities.class);
-			for (CloudProbablityRange monthRange: cloudProbablities.getCloudProbabilities()) {
-				cloudProbablityByMonthHash.put(monthRange.getMonth(), monthRange);
+			
+			// Read from cloud probabilities json file.
+			CloudProbabilities cloudProbablitiesForYear = gson.fromJson(reader, CloudProbabilities.class);
+			for (CloudProbablityRange cloudProbltyForMonth: cloudProbablitiesForYear.getMonthlyCloudProbabilitiesList()) {
+				
+				// Skip any month if month name is wrongly configured.
+				if (cloudProbltyForMonth.getMonthName() != null ) {
+					cloudProbablityByMonthHash.put(cloudProbltyForMonth.getMonthName(), cloudProbltyForMonth);
+				}
 			}
 		} catch (FileNotFoundException e) {
 			logger.error("Failed loading config file:"+configFilePath);
 		} catch (Exception all){
+			// Catching all exception to skip configuration read for the station
 			logger.error("Failed loading config file:"+configFilePath+" Reason:"+all.getMessage());
 		} finally {
 			try {

@@ -179,14 +179,14 @@ public class WeatherCalculationUtils {
 	 * @param temperature
 	 * @return Atmospheric pressure in hPA
 	 */
-	public static int getAtmPressureForStation(Station station,float probablityOfClouds, float temperature) {
+	public static int getAtmosPressureForStation(Station station,float probablityOfClouds, float temperature) {
 		int altitudeOfStation = station.getAltitude();
 		
-		int pressure = getAtmPressureFromAltitude(altitudeOfStation);
+		int pressure = getAtmosPressureFromAltitude(altitudeOfStation);
 		
 		/**
 		TO DO: Incorporate correction factor for the pressure based on:
-		1) Temperature   2) Probability of Clouds
+		1) Temperature   2) Probability of Clouds 
 		*/
 		
 		return pressure;
@@ -199,7 +199,7 @@ public class WeatherCalculationUtils {
 	 * @param temperature
 	 * @return Atmospheric pressure in hPA
 	 */
-	public static int getAtmPressureFromAltitude(int altitudeOfStation) {
+	static int getAtmosPressureFromAltitude(int altitudeOfStation) {
 		
 		int scaledAltitude = 0;
 		// Altitude scale adjustment for the ALTITUDE-PRESSURE Lookup.

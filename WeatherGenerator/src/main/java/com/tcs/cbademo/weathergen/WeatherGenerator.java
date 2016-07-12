@@ -101,9 +101,15 @@ public class WeatherGenerator
 	 */
 	private void getWeatherDataThisHourAllStations(final Calendar calendar) {
 		
-		int monthInInt = calendar.get(Calendar.MONTH);
+		// Get hour of the day in 0-23 format
 		int hour =  calendar.get(Calendar.HOUR_OF_DAY);
+		
+		// Get calendar month in 0-11 format.
+		int monthInInt = calendar.get(Calendar.MONTH);
+		// Convert month in Integer format to Months enum.		
 		Months month = Months.getMonthforValue(monthInInt);
+		
+		// Get timestamp (this hour) in display format
 		String timeStamp = Utilities.getTimeStamp(calendar);
 		
 		// Iterates through all valid stations and get weather data this hour for all stations.
@@ -133,17 +139,17 @@ public class WeatherGenerator
 		// Get temperature adjustment based on the presence of clouds
 		float tempChangeDuetoClouds = WeatherCalculationUtils.getTemperatureVariationDueToCloud(probablityOfClouds, hourOfDay);
 		
-		// Get the actual temperature
+		// Get the actual temperature after adjustment
 		float actualTemperature = tempBasedOnHourOfDay + tempChangeDuetoClouds;
 		
 		// Calculates weather conditions like SNOW,SUNNY,RAIN,CLOUDY 
 		WeatherCondition weatherCondition = WeatherCalculationUtils.getWeatherCondition(probablityOfClouds, actualTemperature);
 		
 		// Get atmospheric pressure based on the altitude based lookup and cloud presence.
-		int atmPressure = WeatherCalculationUtils.getAtmPressureForStation(station, probablityOfClouds,actualTemperature);
+		int atmPressure = WeatherCalculationUtils.getAtmosPressureForStation(station, probablityOfClouds,actualTemperature);
 		
 		// Get the formatted string with all weather data for file logging.
-		String weatherThisHourStr = Utilities.getFormattedResult(station, timeStamp, weatherCondition, actualTemperature, atmPressure);
+		String weatherThisHourStr = Utilities.getFormattedOutputString(station, timeStamp, weatherCondition, actualTemperature, atmPressure);
 		
 		// Append the formatted string to output file.
 		fileAppender.addLine(weatherThisHourStr);

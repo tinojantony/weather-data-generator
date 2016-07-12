@@ -22,10 +22,11 @@ import com.tcs.cbademo.weathergen.util.WeatherHistoryLoaderUtil;
  */
 public class WeatherHistory {
  
+	// Twelve months in a calendar year.
 	private static final int MONTHS_COUNT = 12;
 	
 	/**
-	 * Mapping from STATION -> Montly Temperature Range
+	 * Mapping from STATION -> Monthly Temperature Range
 	 */
 	private static HashMap <String,HashMap<Months,TemperatureRange>> temperatureHistStationMap = new HashMap <String,HashMap<Months,TemperatureRange>>();
 	
@@ -33,30 +34,36 @@ public class WeatherHistory {
 	 * Mapping from STATION -> Slope co-efficients for each month,
 	 */
 	private static HashMap <String,HashMap<Months,DailyTemperatureSlopeCoefficients>> temperatureSlopeCoeffientsStationMap = 
-																			new HashMap <String,HashMap<Months,DailyTemperatureSlopeCoefficients>>();
+																	new HashMap <String,HashMap<Months,DailyTemperatureSlopeCoefficients>>();
 	
 	/**
-	 * Mapping from STATION -> Monthly monsoon cloud probablity range
+	 * Mapping from STATION -> Monthly monsoon cloud probability range
 	 */
 	private static HashMap <String,HashMap<Months,CloudProbablityRange>> cloudProbablityStationMap = new HashMap <String,HashMap<Months,CloudProbablityRange>>();
 	
 	/**
-	 * List of valid station where histoty weather data and cloud probablities are loaded.
+	 * List of valid station where history weather data and cloud probabilities are loaded.
 	 */
-	private static List <Station> stationsWithValidWeatherHist = new ArrayList <Station>();
+	private static List <Station> stationsWithValidWeatherHistory = new ArrayList <Station>();
 	
 	/**
-	 * Loads historic weather data.
-	 * @param stations
+	 * Loads historic weather data (to be called before clock is started)
+	 * @param stations - list of stations configured in station.json file
 	 */
 	public static void loadAllWeatherHistory(final List<Station> stations) { 
 		
+		// Iterates through each station and loads its monthly avg temperature and cloud probability data from config file.
 		for(Station station : stations) {
+			
+			// Loads monthly avg min temperature and avg max temperature from config.
 			boolean temperatureLoaded = loadTemperatureHistoryForStation(station.getCode());
+			
+			// Loads monthly monsoon cloud probability from config.
 			boolean cloudProbablityLoaded = loadCloudProbablityForStation(station.getCode());
 			
 			if (temperatureLoaded && cloudProbablityLoaded) {
-				stationsWithValidWeatherHist.add(station);
+				// Add to the list of valid stations if static configs are loaded successfully.
+				stationsWithValidWeatherHistory.add(station);
 			}
 		}
 	}
@@ -66,7 +73,7 @@ public class WeatherHistory {
 	 * @return list of valid stations
 	 */
 	static List <Station> getStationsWithValidWeatherHistory() {
-		return stationsWithValidWeatherHist;
+		return stationsWithValidWeatherHistory;
 	}
 	
 	/**
@@ -75,11 +82,20 @@ public class WeatherHistory {
 	 * @return true if successfully read, else false.
 	 */
 	private static boolean loadTemperatureHistoryForStation(String stationCode) {
+		
+		// Get path of the temperature config file for the station.
 		String configFilePath = WeatherHistoryLoaderUtil.getWeatherConfigFilePath(WeatherCharacter.TEMPERATURE, stationCode);
+		
+		// Loads the historic temperature data from the config file.
 		HashMap <Months,TemperatureRange> temperatureHistoryEachMonth = WeatherHistoryLoaderUtil.loadTemperatureHistForStation(configFilePath);
+		
+		// Checking 12 months data availability.
 		if (temperatureHistoryEachMonth != null && temperatureHistoryEachMonth.size() == MONTHS_COUNT) {
+			
+			// Add temperature data of the station to STATION -> Monthly Temperature Range Map.
 			temperatureHistStationMap.put(stationCode, temperatureHistoryEachMonth);
 			
+			// From Monthly Temperature Range for the station, calculate slope co-efficients (which is used for calculating daily temperature variation)
 			HashMap<Months,DailyTemperatureSlopeCoefficients> slopeCoefficientsForStation = 
 					WeatherCalculationUtils.getTemperatureSlopeCoefficientsForStation(temperatureHistoryEachMonth);
 			temperatureSlopeCoeffientsStationMap.put(stationCode, slopeCoefficientsForStation);

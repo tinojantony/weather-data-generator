@@ -6,11 +6,11 @@ import java.util.List;
 public class CloudProbabilities {
 	List <CloudProbablityRange> cloudProbabilities = new ArrayList <CloudProbablityRange>();
 
-	public List<CloudProbablityRange> getCloudProbabilities() {
+	public List<CloudProbablityRange> getMonthlyCloudProbabilitiesList() {
 		return cloudProbabilities;
 	}
 
-	public void setCloudProbabilities(List<CloudProbablityRange> cloudProbabilities) {
+	public void setMonthlyCloudProbabilitiesList(List<CloudProbablityRange> cloudProbabilities) {
 		this.cloudProbabilities = cloudProbabilities;
 	}
 }

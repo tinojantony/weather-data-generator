@@ -26,11 +26,11 @@ public class CloudProbablityRange {
 		this.upperLimit = upperLimit;
 	}
 	
-	public Months getMonth() {
+	public Months getMonthName() {
 		return month;
 	}
 
-	public void setMonth(Months month) {
+	public void setMonthName(Months month) {
 		this.month = month;
 	}
 }

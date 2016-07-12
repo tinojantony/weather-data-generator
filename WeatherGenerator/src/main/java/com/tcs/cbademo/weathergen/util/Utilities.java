@@ -161,7 +161,7 @@ public class Utilities {
 		return dateFormatTimeStamp.format(calendar.getTime());
 	}
 	
-	public static String getFormattedResult(Station station,String timeStamp,WeatherCondition condition,float temperature, int pressure) {
+	public static String getFormattedOutputString(Station station,String timeStamp,WeatherCondition condition,float temperature, int pressure) {
 		String pipe_seperator = "|";
 		String coma_seperator = ",";
 		StringBuffer sb = new StringBuffer("");
