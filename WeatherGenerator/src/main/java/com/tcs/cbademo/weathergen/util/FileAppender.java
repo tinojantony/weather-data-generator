@@ -4,6 +4,10 @@ import java.io.FileNotFoundException;
 import java.io.PrintWriter;
 import java.io.UnsupportedEncodingException;
 
+import org.apache.log4j.Logger;
+
+import com.tcs.cbademo.weathergen.WeatherGenerator;
+
 /**
  * Appender to write output to a file
  * @author tinoj
@@ -13,16 +17,16 @@ public class FileAppender {
 
 	PrintWriter writer;
 	
+	private final static Logger logger = Logger.getLogger(FileAppender.class);
+	
 	public FileAppender() {
 		
 		try {
 			writer = new PrintWriter("weather_data.txt", "UTF-8");
 		} catch (FileNotFoundException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
+			logger.error("FileNotFoundException creating output file weather_data.txt:", e);
 		} catch (UnsupportedEncodingException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
+			logger.error("UnsupportedEncodingException creating output file weather_data.txt:", e);
 		}	
 	}
 	

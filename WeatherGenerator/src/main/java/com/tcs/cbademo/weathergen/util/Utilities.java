@@ -27,30 +27,29 @@ import com.tcs.cbademo.weathergen.consts.WeatherCondition;
  */
 public class Utilities {
 	
-	public static SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
+	public static final SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
 	
-	private static SimpleDateFormat dateFormatTimeStamp = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss'Z'");
+	public static final SimpleDateFormat dateFormatTimeStamp = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss'Z'");
 	
 	private static final String CONFIG_BASE = "config/";
 	
-	final static Gson gson = new Gson();
+	private final static Gson gson = new Gson();
 	
 	private final static Logger logger = Logger.getLogger(Utilities.class);
 
 	/**
 	 * Gets Weather Stations from config file.
-	 * @param isTestMode - True if in (unit)testing, False in normal cases
-	 * @return List of all station in the stations.json file.
+	 * @param String - Stations config file to be loaded.
+	 * @return List of all station in the config file.
 	 */
-	public static List <Station> getStationsFromConfigFile(boolean isTestMode) {
+	public static List <Station> getStationsFromConfigFile(String stationsConfigFile) {
 		JsonReader reader = null;
 		Stations stations = null;
 		try {
-			if (!isTestMode)
-				reader = new JsonReader(new FileReader(CONFIG_BASE + "stations.json"));
-			else 
-				reader = new JsonReader(new FileReader(CONFIG_BASE + "test_stations.json"));
-		    stations = gson.fromJson(reader, Stations.class);
+
+			reader = new JsonReader(new FileReader(CONFIG_BASE + stationsConfigFile));
+
+			stations = gson.fromJson(reader, Stations.class);
 		} catch (FileNotFoundException e) {
 			logger.error("Please change directory (cd) to the .jar folder before running");
 			logger.error("Or configure stations.json file inside the config folder.");
@@ -64,7 +63,7 @@ public class Utilities {
 		}
 		return stations.getStations();
 	}
-	
+		
 	/**
 	 * Current implementation calculates end date as 1 YEAR from Start date
 	 * @param calendar
@@ -123,28 +122,32 @@ public class Utilities {
 	 * @return Start Date
 	 */
 	public static Calendar getStartDateFromCommandLine(String[] args) {
-		Calendar calendarStart = Calendar.getInstance();
 		if (args != null && args.length > 0) {
 			try {
+				Calendar calendarStart = Calendar.getInstance();
 				calendarStart.setTime(dateFormat.parse(args[0]));
+				return calendarStart;
 			} catch (ParseException e) {
-				// Parse error occured with user supplied start date.
-				try {
-					calendarStart.setTime(dateFormat.parse(WeatherGenerator.DEFAULT_START_DATE));
-				} catch (ParseException e1) {
-					// TODO Auto-generated catch block
-					e.printStackTrace();
-				}
+				return getDefaultStartDate();
 			}
 		} else {
-			// Initializing with default start date
-			try {
-				calendarStart.setTime(dateFormat.parse(WeatherGenerator.DEFAULT_START_DATE));
-			} catch (ParseException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-			}
-			
+			return getDefaultStartDate();
+		}
+	}
+	
+	/**
+	 * Gets the default start date.
+	 * @return Calendar - Default start date.
+	 */
+	private static Calendar getDefaultStartDate() {
+		// Initializing with default start date
+		Calendar calendarStart = Calendar.getInstance();
+		try {
+			calendarStart = Calendar.getInstance();
+			calendarStart.setTime(dateFormat.parse(WeatherGenerator.DEFAULT_START_DATE));
+			return calendarStart;
+		} catch (ParseException e) {
+			logger.error("Error in parsing default start date: Default start date:"+ WeatherGenerator.DEFAULT_START_DATE);
 		}
 		return calendarStart;
 	}

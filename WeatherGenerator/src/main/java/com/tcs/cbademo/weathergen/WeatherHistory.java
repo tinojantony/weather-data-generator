@@ -43,13 +43,13 @@ public class WeatherHistory {
 	/**
 	 * List of valid station where histoty weather data and cloud probablities are loaded.
 	 */
-	private List <Station> stationsWithValidWeatherHist = new ArrayList <Station>();
+	private static List <Station> stationsWithValidWeatherHist = new ArrayList <Station>();
 	
 	/**
 	 * Loads historic weather data.
 	 * @param stations
 	 */
-	public void loadAllWeatherHistory(final List<Station> stations) { 
+	public static void loadAllWeatherHistory(final List<Station> stations) { 
 		
 		for(Station station : stations) {
 			boolean temperatureLoaded = loadTemperatureHistoryForStation(station.getCode());
@@ -65,7 +65,7 @@ public class WeatherHistory {
 	 *  Returns the list of stations with properly formatted weather data.
 	 * @return list of valid stations
 	 */
-	List <Station> getStationsWithValidWeatherHistory() {
+	static List <Station> getStationsWithValidWeatherHistory() {
 		return stationsWithValidWeatherHist;
 	}
 	
@@ -74,7 +74,7 @@ public class WeatherHistory {
 	 * @param stationCode
 	 * @return true if successfully read, else false.
 	 */
-	private boolean loadTemperatureHistoryForStation(String stationCode) {
+	private static boolean loadTemperatureHistoryForStation(String stationCode) {
 		String configFilePath = WeatherHistoryLoaderUtil.getWeatherConfigFilePath(WeatherCharacter.TEMPERATURE, stationCode);
 		HashMap <Months,TemperatureRange> temperatureHistoryEachMonth = WeatherHistoryLoaderUtil.loadTemperatureHistForStation(configFilePath);
 		if (temperatureHistoryEachMonth != null && temperatureHistoryEachMonth.size() == MONTHS_COUNT) {
@@ -94,7 +94,7 @@ public class WeatherHistory {
 	 * @param stationCode
 	 * @return true if successfully read, else false.
 	 */
-	private boolean loadCloudProbablityForStation(String stationCode) {
+	private static boolean loadCloudProbablityForStation(String stationCode) {
 		String configFilePath = WeatherHistoryLoaderUtil.getCloudProbablityConfigFilePath(stationCode);
 		HashMap <Months,CloudProbablityRange> cloudProbablityEachMonth = WeatherHistoryLoaderUtil.loadCloudProbabilityForStation(configFilePath);
 		if (cloudProbablityEachMonth != null && cloudProbablityEachMonth.size() == MONTHS_COUNT) {

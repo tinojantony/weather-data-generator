@@ -19,12 +19,14 @@ public class WeatherCalculationUtilsTest {
 
 	static List <Station> stations;
 	
+	private static final String STATIONS_CONFIG_FILE = "test_stations.json";
+	
 	@BeforeClass
 	public static void setUpBeforeClass() throws Exception {
 		/// Get Weather Stations from config file.
-		stations = Utilities.getStationsFromConfigFile(true);
+		stations = Utilities.getStationsFromConfigFile(STATIONS_CONFIG_FILE);
 
-		new WeatherHistory().loadAllWeatherHistory(stations);
+		WeatherHistory.loadAllWeatherHistory(stations);
 	}
 
 	@AfterClass

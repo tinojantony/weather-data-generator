@@ -14,27 +14,27 @@ import com.tcs.cbademo.weathergen.util.WeatherCalculationUtils;
 
 
 /**
- * Generates a mock of weather data.
+ * Entry point for the Weather Generator - generates a mock of weather data.
  *
  */
 public class WeatherGenerator 
 {
-	// Holds the previous weather history (monthly averages of all stations)
-	WeatherHistory weatherHistory = new WeatherHistory();
-
-	// Stations with valid weather data after history loading.
-	private List <Station> validWeatherStations;
+	
 
 	// Default start date of the Clock, if no command line based start date is available.
 	public static final String DEFAULT_START_DATE = "2015-01-01";
 	
+	// Config file to read the list of weather stations.
+	private static final String STATIONS_CONFIG_FILE = "stations.json";
+	
 	private final static Logger logger = Logger.getLogger(WeatherGenerator.class);
 	
 	// File Appender to write results to file.
-	FileAppender fileAppender = new FileAppender();
+	private FileAppender fileAppender ;
 	
-	int recordCounterForPerfomanceCheck = 0;
-
+	// For record count - Used for Performance checks.
+	private int recordCounter = 0;
+	
 	public static void main( String[] args ) {
 		
 		// Get start date of clock from command line arguments.
@@ -59,13 +59,10 @@ public class WeatherGenerator
 		logger.info("Started loading historic data...");
 		
 		// Get Weather Stations from config file. 
-		List <Station> stations = Utilities.getStationsFromConfigFile(false);
+		List <Station> stations = Utilities.getStationsFromConfigFile(STATIONS_CONFIG_FILE);
 
 		// Loads historic weather data.
-		weatherHistory.loadAllWeatherHistory(stations);
-		
-		// Gets the list of stations with properly formatted weather data.
-		validWeatherStations = weatherHistory.getStationsWithValidWeatherHistory();
+		WeatherHistory.loadAllWeatherHistory(stations);
 		
 		logger.info("Finished loading historic data.");
 	}
@@ -75,8 +72,12 @@ public class WeatherGenerator
 	 * @param calendar - Clock start calendar instance
 	 * @param calendarEnd - Clock end calendar instance.
 	 */
-	void startClock(Calendar calendar, final Calendar calendarEnd) {
-		logger.info("Starting clock to generate weather data for "+validWeatherStations.size()+ " stations..");
+	private void startClock(Calendar calendar, final Calendar calendarEnd) {
+		
+		// Initialize the file appender for writing weather data generated.
+		fileAppender = new FileAppender();
+		
+		logger.info("Starting clock to generate weather data for "+ WeatherHistory.getStationsWithValidWeatherHistory().size()+ " stations..");
 		do {
 			// Get the weather data for all the station in this hour
 			getWeatherDataThisHourAllStations(calendar);
@@ -87,7 +88,7 @@ public class WeatherGenerator
 		} while (calendar.before(calendarEnd));
 		
 		logger.info("Clock stopped");		
-		logger.info("Generated "+recordCounterForPerfomanceCheck+" records.");
+		logger.info("Generated "+recordCounter+" records.");
 		logger.info("Output written to [weather_data.txt] in the project base folder.");
 		
 		// Close the output file as the clock is stopped.
@@ -98,7 +99,7 @@ public class WeatherGenerator
 	 * Get the weather data for all the valid stations for this hour.
 	 * @param calendar - Time this hour
 	 */
-	void getWeatherDataThisHourAllStations(final Calendar calendar) {
+	private void getWeatherDataThisHourAllStations(final Calendar calendar) {
 		
 		int monthInInt = calendar.get(Calendar.MONTH);
 		int hour =  calendar.get(Calendar.HOUR_OF_DAY);
@@ -106,9 +107,9 @@ public class WeatherGenerator
 		String timeStamp = Utilities.getTimeStamp(calendar);
 		
 		// Iterates through all valid stations and get weather data this hour for all stations.
-		for (Station station: validWeatherStations) {
+		for (Station station: WeatherHistory.getStationsWithValidWeatherHistory()) {
 			getWeatherDataThisHourByStation(station, month,hour,timeStamp);
-			recordCounterForPerfomanceCheck++;
+			recordCounter++;
 		}
 	}
 	
@@ -119,7 +120,7 @@ public class WeatherGenerator
 	 * @param hourOfDay
 	 * @param timeStamp
 	 */
-	void getWeatherDataThisHourByStation(final Station station, final Months month, final int hourOfDay,String timeStamp) {
+	private void getWeatherDataThisHourByStation(final Station station, final Months month, final int hourOfDay,final String timeStamp) {
 		
 		// Get probability of monsoon clouds this hour
 		// Probability is generated as a random number, within the cloud probability range configured for this month for the station.
