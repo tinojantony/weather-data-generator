@@ -30,6 +30,10 @@ public class WeatherHistoryLoaderUtil {
 	
 	private static final String CLOUD_PROBABLITY_CONFIG_BASE = "config/cloudProbability/";
 	
+	private static final String TEMPERATURE_CONFIG_FILE = "/temperature.json";
+	
+	private static final String HUMIDITY_CONFIG_FILE = "/humidity.json";
+	
 	private final static Logger logger = Logger.getLogger(WeatherHistoryLoaderUtil.class);
 
 	
@@ -37,9 +41,9 @@ public class WeatherHistoryLoaderUtil {
 		String filePath = null;
 		switch (weatherCharacter) {
 		case TEMPERATURE: 
-			filePath = WEATHER_CONFIG_BASE + stationCode + "/temperature.json"; break;
+			filePath = WEATHER_CONFIG_BASE + stationCode + TEMPERATURE_CONFIG_FILE ; break;
 		case HUMIDITY: 
-			filePath = WEATHER_CONFIG_BASE + stationCode + "/humidity.json"; break;
+			filePath = WEATHER_CONFIG_BASE + stationCode + HUMIDITY_CONFIG_FILE; break;
 		}    	
 		return filePath;
 	}
