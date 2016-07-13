@@ -16,6 +16,6 @@ log/
 target/
 
 #Project specific
-config/
+#config/
 WeatherGenerator.jar
 weather_data.txt
