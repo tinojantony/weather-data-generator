@@ -64,7 +64,7 @@ public class WeatherCalculationUtils {
 		int scaledHourOfDay = Utilities.getScaledHourOfDay(hourOfDay);
 		
 		// Get slope co-efficiens m1,m2,c1,c2 (pre-calculated for the month and station) for using in formula y=mx+c
-		DailyTemperatureSlopeCoefficients slopeCoefficients = WeatherHistory.temperatureSlopeCoeffientsByStationAndMonth(station,month);
+		DailyTemperatureSlopeCoefficients slopeCoefficients = WeatherHistory.getTemperatureSlopeCoeffientsByStationAndMonth(station,month);
 		
 		// 1pm (noon) is '13' in 24 hour clock.
 		if (scaledHourOfDay < 13) {

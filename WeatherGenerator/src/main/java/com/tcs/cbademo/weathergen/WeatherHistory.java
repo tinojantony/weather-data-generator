@@ -137,7 +137,7 @@ public class WeatherHistory {
 	 * @param month
 	 * @return DailyTemperatureSlopeCoefficients - slope co-efficients(m1,m2,c1,c2)
 	 */
-	public static DailyTemperatureSlopeCoefficients temperatureSlopeCoeffientsByStationAndMonth(String station, Months month) {
+	public static DailyTemperatureSlopeCoefficients getTemperatureSlopeCoeffientsByStationAndMonth(String station, Months month) {
 		return temperatureSlopeCoeffientsStationMap.get(station).get(month);
 	}
 }
