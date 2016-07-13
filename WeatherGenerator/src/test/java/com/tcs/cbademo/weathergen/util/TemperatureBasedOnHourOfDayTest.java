@@ -17,6 +17,7 @@ import org.junit.runners.Parameterized.Parameters;
 
 import com.tcs.cbademo.weathergen.WeatherHistory;
 import com.tcs.cbademo.weathergen.bean.Station;
+import com.tcs.cbademo.weathergen.consts.Constants;
 import com.tcs.cbademo.weathergen.consts.Months;
 
 @RunWith(Parameterized.class)
@@ -26,8 +27,6 @@ public class TemperatureBasedOnHourOfDayTest {
 	
 	static List <Station> stations;
 	
-	private static final String STATIONS_CONFIG_FILE = "test_stations.json";
-
 	public TemperatureBasedOnHourOfDayTest(int hourOfTheDay)
 	{
 		this.hourOfTheDay = hourOfTheDay;
@@ -47,7 +46,7 @@ public class TemperatureBasedOnHourOfDayTest {
 	@BeforeClass
 	public static void setUpBeforeClass() throws Exception {
 		/// Get Weather Stations from config file.
-		stations = Utilities.getStationsFromConfigFile(STATIONS_CONFIG_FILE);
+		stations = Utilities.getStationsFromConfigFile(Constants.UNIT_TEST_STATIONS_CONFIG_FILE);
 
 		WeatherHistory.loadAllWeatherHistory(stations);
 	}

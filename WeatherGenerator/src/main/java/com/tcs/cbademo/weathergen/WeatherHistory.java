@@ -8,6 +8,7 @@ import com.tcs.cbademo.weathergen.bean.CloudProbablityRange;
 import com.tcs.cbademo.weathergen.bean.DailyTemperatureSlopeCoefficients;
 import com.tcs.cbademo.weathergen.bean.Station;
 import com.tcs.cbademo.weathergen.bean.TemperatureRange;
+import com.tcs.cbademo.weathergen.consts.Constants;
 import com.tcs.cbademo.weathergen.consts.Months;
 import com.tcs.cbademo.weathergen.consts.WeatherCharacter;
 import com.tcs.cbademo.weathergen.util.WeatherCalculationUtils;
@@ -22,9 +23,6 @@ import com.tcs.cbademo.weathergen.util.WeatherHistoryLoaderUtil;
  */
 public class WeatherHistory {
  
-	// Twelve months in a calendar year.
-	private static final int MONTHS_COUNT = 12;
-	
 	/**
 	 * Mapping from STATION -> Monthly Temperature Range
 	 */
@@ -90,12 +88,13 @@ public class WeatherHistory {
 		HashMap <Months,TemperatureRange> temperatureHistoryEachMonth = WeatherHistoryLoaderUtil.loadTemperatureHistForStation(configFilePath);
 		
 		// Checking 12 months data availability.
-		if (temperatureHistoryEachMonth != null && temperatureHistoryEachMonth.size() == MONTHS_COUNT) {
+		if (temperatureHistoryEachMonth != null && temperatureHistoryEachMonth.size() == Constants.MONTHS_COUNT) {
 			
 			// Add temperature data of the station to STATION -> Monthly Temperature Range Map.
 			temperatureHistStationMap.put(stationCode, temperatureHistoryEachMonth);
 			
-			// From Monthly Temperature Range for the station, calculate slope co-efficients (which is used for calculating daily temperature variation)
+			// From Monthly Temperature Range for the station, calculate slope co-efficients 
+			// slope co-efficients is used for calculating daily temperature variation
 			HashMap<Months,DailyTemperatureSlopeCoefficients> slopeCoefficientsForStation = 
 					WeatherCalculationUtils.getTemperatureSlopeCoefficientsForStation(temperatureHistoryEachMonth);
 			temperatureSlopeCoeffientsStationMap.put(stationCode, slopeCoefficientsForStation);
@@ -113,7 +112,9 @@ public class WeatherHistory {
 	private static boolean loadCloudProbablityForStation(String stationCode) {
 		String configFilePath = WeatherHistoryLoaderUtil.getCloudProbablityConfigFilePath(stationCode);
 		HashMap <Months,CloudProbablityRange> cloudProbablityEachMonth = WeatherHistoryLoaderUtil.loadCloudProbabilityForStation(configFilePath);
-		if (cloudProbablityEachMonth != null && cloudProbablityEachMonth.size() == MONTHS_COUNT) {
+		
+		// Checking 12 months data availability.
+		if (cloudProbablityEachMonth != null && cloudProbablityEachMonth.size() == Constants.MONTHS_COUNT) {
 			cloudProbablityStationMap.put(stationCode, cloudProbablityEachMonth);
 			return true;
 		}

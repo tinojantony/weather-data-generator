@@ -8,6 +8,7 @@ import com.tcs.cbademo.weathergen.bean.DailyTemperatureSlopeCoefficients;
 import com.tcs.cbademo.weathergen.bean.Station;
 import com.tcs.cbademo.weathergen.bean.TemperatureRange;
 import com.tcs.cbademo.weathergen.consts.AtmPressure;
+import com.tcs.cbademo.weathergen.consts.Constants;
 import com.tcs.cbademo.weathergen.consts.Months;
 import com.tcs.cbademo.weathergen.consts.WeatherCondition;
 
@@ -18,7 +19,6 @@ import com.tcs.cbademo.weathergen.consts.WeatherCondition;
  */
 public class WeatherCalculationUtils {
 	
-	private static final int TEMPERATURE_ADJUSTMENT_CONSTANT = 5;
 	
 	/**
 	 * Get probability of monsoon clouds this hour
@@ -92,14 +92,14 @@ public class WeatherCalculationUtils {
 		} else if (probablityOfCloudsInTheStation > 0.5 && probablityOfCloudsInTheStation <= 0.75) {
 			if (Utilities.isNightTime(hourOfDay)) {
 				// In night, clouds blocks the escape of heat from the earth surface. Will make surface warm.
-				adjustedTemperature = TEMPERATURE_ADJUSTMENT_CONSTANT;
+				adjustedTemperature = Constants.TEMPERATURE_ADJUSTMENT_CONSTANT;
 			} else {
 				//In daytime, clouds acts as shade from infrared radiation. So will reduce temperature.
-				adjustedTemperature = -1 * TEMPERATURE_ADJUSTMENT_CONSTANT ;
+				adjustedTemperature = -1 * Constants.TEMPERATURE_ADJUSTMENT_CONSTANT ;
 			}
 		} else if (probablityOfCloudsInTheStation > 0.75 && probablityOfCloudsInTheStation <= 1) {
 			// Started raining. So temperature will be reduced.
-			adjustedTemperature = -1 * TEMPERATURE_ADJUSTMENT_CONSTANT ;
+			adjustedTemperature = -1 * Constants.TEMPERATURE_ADJUSTMENT_CONSTANT ;
 		}	
 		return adjustedTemperature;
 	}

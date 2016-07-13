@@ -3,19 +3,18 @@ package com.tcs.cbademo.weathergen.util;
 import static org.junit.Assert.*;
 
 import java.text.ParseException;
-import java.text.SimpleDateFormat;
 import java.util.Calendar;
 
 import org.junit.Test;
 
-import com.tcs.cbademo.weathergen.WeatherGenerator;
+import com.tcs.cbademo.weathergen.consts.Constants;
 
 public class UtilitiesTest {
 
 	
 	@Test
-	public void testGetStartDateFromCommandLineWithArguments()  {
-		Calendar calendar1 = Utilities.getStartDateFromCommandLine(new String[] {"2014-02-02"});
+	public void testGetStartDateFromStringValid()  {
+		Calendar calendar1 = Utilities.getStartDateFromString("2014-02-02");
 		Calendar calendar2 = Calendar.getInstance();
 		
 		try {
@@ -29,12 +28,28 @@ public class UtilitiesTest {
 	}
 	
 	@Test
-	public void testGetStartDateFromCommandLineWithOutArguments()  {
-		Calendar calendar1 = Utilities.getStartDateFromCommandLine(new String[] {});
+	public void testGetStartDateFromInValidString()  {
+		Calendar calendar1 = Utilities.getStartDateFromString("201--02-02");
+		Calendar calendar2 = Calendar.getInstance();
+
+		try {
+			calendar2.setTime(Utilities.dateFormat.parse(Constants.DEFAULT_START_DATE));
+			assertTrue(calendar1.getTimeInMillis() == calendar2.getTimeInMillis() );
+		} catch (ParseException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		
+
+	}
+	
+	@Test
+	public void testGetDefaultStartDate()  {
+		Calendar calendar1 = Utilities.getDefaultStartDate();
 		Calendar calendar2 = Calendar.getInstance();
 		
 		try {
-			calendar2.setTime(Utilities.dateFormat.parse(WeatherGenerator.DEFAULT_START_DATE));
+			calendar2.setTime(Utilities.dateFormat.parse(Constants.DEFAULT_START_DATE));
 		} catch (ParseException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();

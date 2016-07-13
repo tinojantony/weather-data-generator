@@ -3,13 +3,10 @@ package com.tcs.cbademo.weathergen.util;
 import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.IOException;
-
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
-
 import java.util.List;
-
 
 import org.apache.log4j.Logger;
 
@@ -18,6 +15,7 @@ import com.google.gson.stream.JsonReader;
 import com.tcs.cbademo.weathergen.WeatherGenerator;
 import com.tcs.cbademo.weathergen.bean.Station;
 import com.tcs.cbademo.weathergen.bean.Stations;
+import com.tcs.cbademo.weathergen.consts.Constants;
 import com.tcs.cbademo.weathergen.consts.WeatherCondition;
 
 /**
@@ -36,6 +34,11 @@ public class Utilities {
 	private final static Gson gson = new Gson();
 	
 	private final static Logger logger = Logger.getLogger(Utilities.class);
+	
+	static {
+		// To enable strict date format parsing
+		dateFormat.setLenient(false);
+	}
 
 	/**
 	 * Gets Weather Stations from config file.
@@ -118,38 +121,38 @@ public class Utilities {
 	
 	/**
 	 * Get Clock start date from command line arguments
+	 * Date is expected in in yyyy-MM-dd format
 	 * @param args Command line arguments
 	 * @return Start Date
 	 */
-	public static Calendar getStartDateFromCommandLine(String[] args) {
-		if (args != null && args.length > 0) {
-			try {
-				Calendar calendarStart = Calendar.getInstance();
-				calendarStart.setTime(dateFormat.parse(args[0]));
-				return calendarStart;
-			} catch (ParseException e) {
-				return getDefaultStartDate();
-			}
-		} else {
+	public static Calendar getStartDateFromString(String startDate) {
+		try {
+			Calendar calendarStart = Calendar.getInstance();
+			calendarStart.setTime(dateFormat.parse(startDate));
+			logger.info("Start date read from command line:"+ dateFormat.format(calendarStart.getTime()));
+			return calendarStart;
+		} catch (ParseException e) {
+			logger.warn("Error in parsing user supplied start date. Setting to default start date:"+ Constants.DEFAULT_START_DATE);
 			return getDefaultStartDate();
 		}
+
 	}
 	
 	/**
 	 * Gets the default start date.
 	 * @return Calendar - Default start date.
 	 */
-	private static Calendar getDefaultStartDate() {
+	public static Calendar getDefaultStartDate() {
 		// Initializing with default start date
 		Calendar calendarStart = Calendar.getInstance();
 		try {
 			calendarStart = Calendar.getInstance();
-			calendarStart.setTime(dateFormat.parse(WeatherGenerator.DEFAULT_START_DATE));
+			calendarStart.setTime(dateFormat.parse(Constants.DEFAULT_START_DATE));
 			return calendarStart;
 		} catch (ParseException e) {
-			logger.error("Error in parsing default start date: Default start date:"+ WeatherGenerator.DEFAULT_START_DATE);
+			logger.error("Error in parsing default start date: Default start date:"+ Constants.DEFAULT_START_DATE);
+			return null;
 		}
-		return calendarStart;
 	}
 	
 	/**

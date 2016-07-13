@@ -12,6 +12,7 @@ import org.junit.Test;
 
 import com.tcs.cbademo.weathergen.WeatherHistory;
 import com.tcs.cbademo.weathergen.bean.Station;
+import com.tcs.cbademo.weathergen.consts.Constants;
 import com.tcs.cbademo.weathergen.consts.Months;
 import com.tcs.cbademo.weathergen.consts.WeatherCondition;
 
@@ -19,12 +20,10 @@ public class WeatherCalculationUtilsTest {
 
 	static List <Station> stations;
 	
-	private static final String STATIONS_CONFIG_FILE = "test_stations.json";
-	
 	@BeforeClass
 	public static void setUpBeforeClass() throws Exception {
 		/// Get Weather Stations from config file.
-		stations = Utilities.getStationsFromConfigFile(STATIONS_CONFIG_FILE);
+		stations = Utilities.getStationsFromConfigFile(Constants.UNIT_TEST_STATIONS_CONFIG_FILE);
 
 		WeatherHistory.loadAllWeatherHistory(stations);
 	}
@@ -43,19 +42,28 @@ public class WeatherCalculationUtilsTest {
 
 	@Test
 	public void testGetProbablityOfCloudsInStationThisHourA() {
+		// Generate a random probability within the range configured.
 		float probablityOfClouds = WeatherCalculationUtils.getProbablityOfCloudsInStationThisHour(stations.get(0).getCode(), Months.JANUARY);
+		
+		//Check the bounds
 		assertTrue(probablityOfClouds >= 0.3 && probablityOfClouds <= 0.5);
 	}
 	
 	@Test
 	public void testGetProbablityOfCloudsInStationThisHourB() {
+		// Generate a random probability within the range configured.
 		float probablityOfClouds = WeatherCalculationUtils.getProbablityOfCloudsInStationThisHour(stations.get(0).getCode(), Months.JUNE);
+		
+		//Check the bounds
 		assertTrue(probablityOfClouds >= 0.6 && probablityOfClouds <= 1.0);
 	}
 
 	@Test
 	public void testGetProbablityOfCloudsInStationThisHourC() {
+		// Generate a random probability within the range configured.
 		float probablityOfClouds = WeatherCalculationUtils.getProbablityOfCloudsInStationThisHour(stations.get(0).getCode(), Months.DECEMBER);
+		
+		//Check the bounds
 		assertTrue(probablityOfClouds >= 0 && probablityOfClouds <= 0.5);
 	}
 
@@ -86,12 +94,15 @@ public class WeatherCalculationUtilsTest {
 
 	@Test
 	public void testGetTemperatureBasedOnHourOfDayMaximum() {
+		// Configured Value: { "month": "MARCH", "minTemp": 2.8, "maxTemp": 25 }
+
 		float temperature = WeatherCalculationUtils.getTemperatureBasedOnHourOfDay(stations.get(0).getCode(), Months.MARCH, 13);
 		assertTrue(Math.abs(temperature - 25) < 1);
 	}
 	
 	@Test
 	public void testGetTemperatureBasedOnHourOfDayMinimum() {
+		// Configured Value: { "month": "MARCH", "minTemp": 2.8, "maxTemp": 25 }
 		float temperature = WeatherCalculationUtils.getTemperatureBasedOnHourOfDay(stations.get(0).getCode(), Months.MARCH, 4);
 		assertTrue(Math.abs(temperature - 2.8) < 1);
 	}
