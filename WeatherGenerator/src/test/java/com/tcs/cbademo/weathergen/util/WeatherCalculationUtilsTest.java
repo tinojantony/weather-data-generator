@@ -12,6 +12,7 @@ import org.junit.Test;
 
 import com.tcs.cbademo.weathergen.WeatherHistory;
 import com.tcs.cbademo.weathergen.bean.Station;
+import com.tcs.cbademo.weathergen.consts.AtmosphericPressure;
 import com.tcs.cbademo.weathergen.consts.Constants;
 import com.tcs.cbademo.weathergen.consts.Months;
 import com.tcs.cbademo.weathergen.consts.WeatherCondition;
@@ -152,25 +153,25 @@ public class WeatherCalculationUtilsTest {
 	
 	@Test
 	public void testGetAtmPressureForStationAltitudeA() {
-		int pressure = WeatherCalculationUtils.getAtmosPressureFromAltitude(0);
+		int pressure = AtmosphericPressure.getAtmosPressureFromAltitude(0);
 		assertEquals(1013, pressure);
 	}
 
 	@Test
 	public void testGetAtmPressureForStationAltitudeB() {
-		int pressure = WeatherCalculationUtils.getAtmosPressureFromAltitude(7);
+		int pressure = AtmosphericPressure.getAtmosPressureFromAltitude(7);
 		assertEquals(995, pressure);
 	}
 	
 	@Test
 	public void testGetAtmPressureForStationAltitudeC() {
-		int pressure = WeatherCalculationUtils.getAtmosPressureFromAltitude(57);
+		int pressure = AtmosphericPressure.getAtmosPressureFromAltitude(57);
 		assertEquals(843, pressure);
 	}
 	
 	@Test
 	public void testGetAtmPressureForStationAltitudeD() {
-		int pressure = WeatherCalculationUtils.getAtmosPressureFromAltitude(125);
+		int pressure = AtmosphericPressure.getAtmosPressureFromAltitude(125);
 		assertEquals(697, pressure);
 	}
 

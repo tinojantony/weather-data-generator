@@ -7,7 +7,7 @@ import com.tcs.cbademo.weathergen.bean.CloudProbablityRange;
 import com.tcs.cbademo.weathergen.bean.DailyTemperatureSlopeCoefficients;
 import com.tcs.cbademo.weathergen.bean.Station;
 import com.tcs.cbademo.weathergen.bean.TemperatureRange;
-import com.tcs.cbademo.weathergen.consts.AtmPressure;
+import com.tcs.cbademo.weathergen.consts.AtmosphericPressure;
 import com.tcs.cbademo.weathergen.consts.Constants;
 import com.tcs.cbademo.weathergen.consts.Months;
 import com.tcs.cbademo.weathergen.consts.WeatherCondition;
@@ -192,7 +192,7 @@ public class WeatherCalculationUtils {
 	public static int getAtmosPressureForStation(Station station,float probablityOfClouds, float temperature) {
 		int altitudeOfStation = station.getAltitude();
 		
-		int pressure = getAtmosPressureFromAltitude(altitudeOfStation);
+		int pressure = AtmosphericPressure.getAtmosPressureFromAltitude(altitudeOfStation);
 		
 		/**
 		TO DO: Incorporate correction factor for the pressure based on:
@@ -202,31 +202,4 @@ public class WeatherCalculationUtils {
 		return pressure;
 	}
 	
-	/**
-	 * Gets atmospheric pressure based on the altitude, probablity of monsoon clouds and temperature
-	 * @param station
-	 * @param probablityOfClouds
-	 * @param temperature
-	 * @return Atmospheric pressure in hPA
-	 */
-	static int getAtmosPressureFromAltitude(int altitudeOfStation) {
-		
-		int scaledAltitude = 0;
-		// Altitude scale adjustment for the ALTITUDE-PRESSURE Lookup.
-		if (altitudeOfStation <= 50) {
-			// Converting to multiples of 5. 
-			scaledAltitude = (int) 5 *(Math.round(altitudeOfStation/5));
-		} else if (altitudeOfStation > 50 && altitudeOfStation <= 100) {
-			// Converting to multiples of 10
-			scaledAltitude = (int) 10 * Math.round(altitudeOfStation/10);
-		} else {
-			scaledAltitude = (int) 50 *(Math.round(altitudeOfStation/50));
-		}
-		
-		int pressure = AtmPressure.getPressureFromAltitude(scaledAltitude);
-		
-		
-		return pressure;
-	} 
-
 }
