@@ -34,15 +34,25 @@ public class WeatherCalculationUtils {
 		return Utilities.decimalRounding(probablityOfCloudsInTheStation);
 	}
 	
+	/**
+	 * Get weather condition based on cloud presence and temperature.
+	 * @param probablityOfCloudsInTheStation
+	 * @param currentTemperature
+	 * @return enum WeatherCondition with values SNOW, SUNNY, CLOUDY, RAIN
+	 */
 	public static WeatherCondition getWeatherCondition(float probablityOfCloudsInTheStation, float currentTemperature) {
 		WeatherCondition weatherCondition = WeatherCondition.UNKNOWN;
 		if (currentTemperature < 0) {
+			// Temperature below 0 degrees.
 			weatherCondition = WeatherCondition.SNOW;
 		} else if (probablityOfCloudsInTheStation <= 0.5) {
+			// Not enough clouds. So will be a sunny day
 			weatherCondition = WeatherCondition.SUNNY;
 		} else if (probablityOfCloudsInTheStation > 0.5 && probablityOfCloudsInTheStation <= 0.75) {
+			// Clouds are there. But not enough to start rain.
 			weatherCondition = WeatherCondition.CLOUDY;
 		} else if (probablityOfCloudsInTheStation > 0.75 && probablityOfCloudsInTheStation <= 1) {
+			// Lots of cloud and it will be raining.
 			weatherCondition = WeatherCondition.RAIN;
 		}
 		return weatherCondition;
@@ -112,7 +122,7 @@ public class WeatherCalculationUtils {
 	 * @param maxTemp
 	 * @return float - Slope m1
 	 */
-	public static float getTemperatureSlopeFrom4amTo13pm(float minTemp, float maxTemp) {
+	static float getTemperatureSlopeFrom4amTo13pm(float minTemp, float maxTemp) {
 		
 		return (maxTemp - minTemp)/9;
 	}
@@ -125,7 +135,7 @@ public class WeatherCalculationUtils {
 	 * @param maxTemp
 	 * @return float - Slope m2
 	 */
-	public static float getTemperatureSlopeFrom13pmTo4am(float minTemp, float maxTemp) {
+	static float getTemperatureSlopeFrom13pmTo4am(float minTemp, float maxTemp) {
 		
 		return (minTemp - maxTemp)/15;
 	}
@@ -140,7 +150,7 @@ public class WeatherCalculationUtils {
 	 * @param maxTemp
 	 * @return float - Intercept
 	 */
-	public static float calculateIntercept(float slope, float maxTemp) {
+	static float calculateIntercept(float slope, float maxTemp) {
 		return maxTemp - slope * 13;
 	}
 	
