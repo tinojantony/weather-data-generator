@@ -76,7 +76,7 @@ public class WeatherGenerator
 	 * @param calendar - Clock start calendar instance
 	 * @param calendarEnd - Clock end calendar instance.
 	 */
-	private void startClock(Calendar calendar, final Calendar calendarEnd) {
+	private void startClock(Calendar calendar, Calendar calendarEnd) {
 		
 		// Initialize the file appender for writing weather data generated.
 		try {
@@ -108,7 +108,7 @@ public class WeatherGenerator
 	 * Get the weather data for all the valid stations for this hour.
 	 * @param calendar - Time this hour
 	 */
-	private void getWeatherDataThisHourAllStations(final Calendar calendar) {
+	private void getWeatherDataThisHourAllStations(Calendar calendar) {
 
 		// Get hour of the day in 0-23 format
 		int hour =  calendar.get(Calendar.HOUR_OF_DAY);

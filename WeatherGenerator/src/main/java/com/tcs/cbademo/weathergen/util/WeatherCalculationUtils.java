@@ -27,7 +27,7 @@ public class WeatherCalculationUtils {
 	 * @param month
 	 * @return Random probability of monsoon clouds in this station,this month
 	 */
-	public static float getProbablityOfCloudsInStationThisHour(final String station, final Months month) {
+	public static float getProbablityOfCloudsInStationThisHour(String station, Months month) {
 		CloudProbablityRange probablityRange = WeatherHistory.getCloudProbablityByStationAndMonth(station, month);
 		float probablityOfCloudsInTheStation = (float)Utilities.generateRandomNumbersWithInBoundary(probablityRange.getLowerLimit(),
 													probablityRange.getUpperLimit());
@@ -59,7 +59,7 @@ public class WeatherCalculationUtils {
 	 * @param hourOfDay
 	 * @return
 	 */
-	public static float getTemperatureBasedOnHourOfDay(final String station, final Months month, final int hourOfDay) {
+	public static float getTemperatureBasedOnHourOfDay(String station, Months month, int hourOfDay) {
 		
 		int scaledHourOfDay = Utilities.getScaledHourOfDay(hourOfDay);
 		
