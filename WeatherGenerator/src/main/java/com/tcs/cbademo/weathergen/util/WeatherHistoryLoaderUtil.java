@@ -61,13 +61,15 @@ public class WeatherHistoryLoaderUtil {
 	public static HashMap <Months,TemperatureRange> loadTemperatureHistForStation(String configFilePath) {
 
 		JsonReader reader = null;
-		HashMap <Months,TemperatureRange> tempratureHistoryByMonthHash = new HashMap <Months,TemperatureRange>();
+		HashMap <Months,TemperatureRange> tempratureHistoryByMonthHash = null; 
 		
 		try {
 			reader = new JsonReader(new FileReader(configFilePath));
 			
 			// Read from temperature.json file.
 			TemperatureHistory temperatureHistoryForYear = gson.fromJson(reader, TemperatureHistory.class);
+			
+			tempratureHistoryByMonthHash = new HashMap <Months,TemperatureRange>();
 			
 			// Iterate through temperature history every month 
 			for (TemperatureRange tempratureRangeForMonth : temperatureHistoryForYear.getMonthlyTemperatureRangeList()) {
@@ -102,13 +104,16 @@ public class WeatherHistoryLoaderUtil {
 	public static HashMap <Months,CloudProbablityRange> loadCloudProbabilityForStation(String configFilePath) {
 
 		JsonReader reader = null;
-		HashMap <Months,CloudProbablityRange> cloudProbablityByMonthHash = new HashMap <Months,CloudProbablityRange>();
+		HashMap <Months,CloudProbablityRange> cloudProbablityByMonthHash = null;  
 		
 		try {
 			reader = new JsonReader(new FileReader(configFilePath));
 			
 			// Read from cloud probabilities json file.
 			CloudProbabilities cloudProbablitiesForYear = gson.fromJson(reader, CloudProbabilities.class);
+			
+			cloudProbablityByMonthHash = new HashMap <Months,CloudProbablityRange>();
+			
 			for (CloudProbablityRange cloudProbltyForMonth: cloudProbablitiesForYear.getMonthlyCloudProbabilitiesList()) {
 				
 				// Skip any month if month name is wrongly configured.

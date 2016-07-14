@@ -8,6 +8,8 @@ import java.io.UnsupportedEncodingException;
 import org.apache.log4j.Logger;
 
 import com.tcs.cbademo.weathergen.WeatherGenerator;
+import com.tcs.cbademo.weathergen.consts.Constants;
+import com.tcs.cbademo.weathergen.exception.WeatherGeneratorException;
 
 /**
  * Appender to write output to a file
@@ -20,18 +22,17 @@ public class FileAppender {
 	
 	private final static Logger logger = Logger.getLogger(FileAppender.class);
 	
-	public FileAppender() throws IOException {
+	public FileAppender() throws WeatherGeneratorException {
 		
 		try {
-			
-			writer = new PrintWriter("weather_data.txt", "UTF-8");
+			writer = new PrintWriter(Constants.OUTPUT_FILE_NAME, "UTF-8");
 			
 		} catch (FileNotFoundException e) {
 			logger.error("FileNotFoundException creating output file weather_data.txt:", e);
-			throw new IOException("Output file creation failed. Program need to exited.");
+			throw new WeatherGeneratorException("Output file creation failed. Program need to exited.",e);
 		} catch (UnsupportedEncodingException e) {
 			logger.error("UnsupportedEncodingException creating output file weather_data.txt:", e);
-			throw new IOException("Output file creation failed. Program need to exited.");
+			throw new WeatherGeneratorException("Output file creation failed. Program need to exited.",e);
 		}	
 	}
 	

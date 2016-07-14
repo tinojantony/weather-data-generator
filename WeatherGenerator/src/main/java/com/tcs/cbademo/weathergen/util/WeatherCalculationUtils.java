@@ -97,9 +97,16 @@ public class WeatherCalculationUtils {
 	 */
 	public static int getTemperatureVariationDueToCloud(float probablityOfCloudsInTheStation,int hourOfDay) {
 		int adjustedTemperature = 0;
-		if (probablityOfCloudsInTheStation <= 0.5) {
+		
+		boolean noClouds = probablityOfCloudsInTheStation <= Constants.NOT_ENOUGH_CLOUDS_UPPER_THRESHOLD;
+		boolean notEnoughCloudsToStartRain = (probablityOfCloudsInTheStation > Constants.NOT_ENOUGH_CLOUDS_UPPER_THRESHOLD && 
+				probablityOfCloudsInTheStation <= Constants.RAIN_START_LOWER_THRESHOLD);
+		boolean rainStarted = probablityOfCloudsInTheStation > Constants.RAIN_START_LOWER_THRESHOLD;
+		
+		if (noClouds) {
 			// Not enough clouds. So no temperature adjustment.
-		} else if (probablityOfCloudsInTheStation > 0.5 && probablityOfCloudsInTheStation <= 0.75) {
+			// Later will add minor adjustment based on amount of clouds.
+		} else if (notEnoughCloudsToStartRain) {
 			if (Utilities.isNightTime(hourOfDay)) {
 				// In night, clouds blocks the escape of heat from the earth surface. Will make surface warm.
 				adjustedTemperature = Constants.TEMPERATURE_ADJUSTMENT_CONSTANT;
@@ -107,7 +114,7 @@ public class WeatherCalculationUtils {
 				//In daytime, clouds acts as shade from infrared radiation. So will reduce temperature.
 				adjustedTemperature = -1 * Constants.TEMPERATURE_ADJUSTMENT_CONSTANT ;
 			}
-		} else if (probablityOfCloudsInTheStation > 0.75 && probablityOfCloudsInTheStation <= 1) {
+		} else if (rainStarted) {
 			// Started raining. So temperature will be reduced.
 			adjustedTemperature = -1 * Constants.TEMPERATURE_ADJUSTMENT_CONSTANT ;
 		}	

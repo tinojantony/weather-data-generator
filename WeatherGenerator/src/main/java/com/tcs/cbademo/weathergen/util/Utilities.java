@@ -17,6 +17,7 @@ import com.tcs.cbademo.weathergen.bean.Station;
 import com.tcs.cbademo.weathergen.bean.Stations;
 import com.tcs.cbademo.weathergen.consts.Constants;
 import com.tcs.cbademo.weathergen.consts.WeatherCondition;
+import com.tcs.cbademo.weathergen.exception.WeatherGeneratorException;
 
 /**
  * Provides a set of general utility methods.
@@ -125,7 +126,7 @@ public class Utilities {
 	 * @param args Command line arguments
 	 * @return Start Date
 	 */
-	public static Calendar getStartDateFromString(String startDate) {
+	public static Calendar getStartDateFromString(String startDate) throws WeatherGeneratorException {
 		try {
 			Calendar calendarStart = Calendar.getInstance();
 			calendarStart.setTime(dateFormat.parse(startDate));
@@ -142,17 +143,17 @@ public class Utilities {
 	 * Gets the default start date.
 	 * @return Calendar - Default start date.
 	 */
-	public static Calendar getDefaultStartDate() {
+	public static Calendar getDefaultStartDate() throws WeatherGeneratorException {
 		// Initializing with default start date
 		Calendar calendarStart = Calendar.getInstance();
 		try {
 			calendarStart = Calendar.getInstance();
 			calendarStart.setTime(dateFormat.parse(Constants.DEFAULT_START_DATE));
-			return calendarStart;
 		} catch (ParseException e) {
 			logger.error("Error in parsing default start date: Default start date:"+ Constants.DEFAULT_START_DATE);
-			return null;
+			throw new WeatherGeneratorException("Error in parsing default start date",e);
 		}
+		return calendarStart;
 	}
 	
 	/**

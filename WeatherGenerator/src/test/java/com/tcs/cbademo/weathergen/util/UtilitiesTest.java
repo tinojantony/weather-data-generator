@@ -8,12 +8,13 @@ import java.util.Calendar;
 import org.junit.Test;
 
 import com.tcs.cbademo.weathergen.consts.Constants;
+import com.tcs.cbademo.weathergen.exception.WeatherGeneratorException;
 
 public class UtilitiesTest {
 
 	
 	@Test
-	public void testGetStartDateFromStringValid()  {
+	public void testGetStartDateFromStringValid() throws WeatherGeneratorException  {
 		Calendar calendar1 = Utilities.getStartDateFromString("2014-02-02");
 		Calendar calendar2 = Calendar.getInstance();
 		
@@ -28,7 +29,7 @@ public class UtilitiesTest {
 	}
 	
 	@Test
-	public void testGetStartDateFromInValidString()  {
+	public void testGetStartDateFromInValidString() throws WeatherGeneratorException  {
 		Calendar calendar1 = Utilities.getStartDateFromString("201--02-02");
 		Calendar calendar2 = Calendar.getInstance();
 
@@ -44,10 +45,12 @@ public class UtilitiesTest {
 	}
 	
 	@Test
-	public void testGetDefaultStartDate()  {
-		Calendar calendar1 = Utilities.getDefaultStartDate();
+	public void testGetDefaultStartDate() throws WeatherGeneratorException  {
+		Calendar calendar1;
+
+		calendar1 = Utilities.getDefaultStartDate();
 		Calendar calendar2 = Calendar.getInstance();
-		
+
 		try {
 			calendar2.setTime(Utilities.dateFormat.parse(Constants.DEFAULT_START_DATE));
 		} catch (ParseException e) {
@@ -55,7 +58,6 @@ public class UtilitiesTest {
 			e.printStackTrace();
 		}
 		assertTrue(calendar1.getTimeInMillis() == calendar2.getTimeInMillis() );
-		
 	}
 	
 	@Test

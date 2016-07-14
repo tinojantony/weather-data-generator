@@ -10,6 +10,7 @@ import com.tcs.cbademo.weathergen.bean.Station;
 import com.tcs.cbademo.weathergen.consts.Constants;
 import com.tcs.cbademo.weathergen.consts.Months;
 import com.tcs.cbademo.weathergen.consts.WeatherCondition;
+import com.tcs.cbademo.weathergen.exception.WeatherGeneratorException;
 import com.tcs.cbademo.weathergen.util.FileAppender;
 import com.tcs.cbademo.weathergen.util.Utilities;
 import com.tcs.cbademo.weathergen.util.WeatherCalculationUtils;
@@ -29,10 +30,10 @@ public class WeatherGenerator
 	// For record count - Used for Verification & Performance checks.
 	private int recordCounter = 0;
 	
-	public static void main( String[] args ) {
-		
+	public static void main( String[] args ) throws WeatherGeneratorException {
+
 		Calendar calendarStart = null;
-		
+
 		// Get start date of clock from command line arguments.
 		// First command line argument is the start date in yyyy-MM-dd format
 		if (args != null && args.length > 0) {
@@ -41,19 +42,17 @@ public class WeatherGenerator
 			// If no command line argument, initialize with default start date.
 			calendarStart = Utilities.getDefaultStartDate();
 		}
-		
-		if (calendarStart != null) {
 
-			// End date of the clock. Current implementation calculates end date as 1 YEAR from Start date
-			Calendar calendarEnd  = Utilities.getCalendarEnd(calendarStart);
+		// End date of the clock. Current implementation calculates end date as 1 YEAR from Start date
+		Calendar calendarEnd  = Utilities.getCalendarEnd(calendarStart);
 
-			// Instantiate WeatherGenerator. 
-			// Loads all historic data and configurations.
-			WeatherGenerator weatherGenerator = new WeatherGenerator();
+		// Instantiate WeatherGenerator. 
+		// Loads all historic data and configurations.
+		WeatherGenerator weatherGenerator = new WeatherGenerator();
 
-			// Start the clock.
-			weatherGenerator.startClock(calendarStart,calendarEnd);
-		}
+		// Start the clock.
+		weatherGenerator.startClock(calendarStart,calendarEnd);
+
 	}
 
 	/**
@@ -76,29 +75,25 @@ public class WeatherGenerator
 	 * @param calendar - Clock start calendar instance
 	 * @param calendarEnd - Clock end calendar instance.
 	 */
-	private void startClock(Calendar calendar, Calendar calendarEnd) {
-		
+	private void startClock(Calendar calendar, Calendar calendarEnd) throws WeatherGeneratorException {
+
 		// Initialize the file appender for writing weather data generated.
-		try {
-			fileAppender = new FileAppender();
-		} catch (IOException e) {
-			logger.error("Exiting program due to output file creation failure...", e);
-			System.exit(1);
-		}
-		
+
+		fileAppender = new FileAppender();
+
 		logger.info("Starting clock to generate weather data for "+ WeatherHistory.getStationsWithValidWeatherHistory().size()+ " stations..");
 		do {
 			// Get the weather data for all the station in this hour
 			getWeatherDataThisHourAllStations(calendar);
-			
+
 			// Increment the clock by 1 HOUR
 			calendar.add(Calendar.HOUR, 1);
-			
+
 		} while (calendar.before(calendarEnd));
-		
+
 		logger.info("Clock stopped. Generated "+recordCounter+" records.");		
-		logger.info("Output written to [weather_data.txt] in the project base folder.");
-		
+		logger.info("Output written to "+ Constants.OUTPUT_FILE_NAME +" in the project base folder.");
+
 		// Close the output file as the clock is stopped.
 		fileAppender.closeFileAppender();
 	}
