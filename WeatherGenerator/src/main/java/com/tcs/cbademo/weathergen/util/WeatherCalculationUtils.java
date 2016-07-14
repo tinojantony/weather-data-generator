@@ -41,17 +41,23 @@ public class WeatherCalculationUtils {
 	 * @return enum WeatherCondition with values SNOW, SUNNY, CLOUDY, RAIN
 	 */
 	public static WeatherCondition getWeatherCondition(float probablityOfCloudsInTheStation, float currentTemperature) {
+		
+		boolean noClouds = probablityOfCloudsInTheStation <= Constants.NOT_ENOUGH_CLOUDS_UPPER_THRESHOLD;
+		boolean notEnoughCloudsToStartRain = (probablityOfCloudsInTheStation > Constants.NOT_ENOUGH_CLOUDS_UPPER_THRESHOLD && 
+				probablityOfCloudsInTheStation <= Constants.RAIN_START_LOWER_THRESHOLD);
+		boolean rainStarted = probablityOfCloudsInTheStation > Constants.RAIN_START_LOWER_THRESHOLD;
+		
 		WeatherCondition weatherCondition = WeatherCondition.UNKNOWN;
 		if (currentTemperature < 0) {
 			// Temperature below 0 degrees.
 			weatherCondition = WeatherCondition.SNOW;
-		} else if (probablityOfCloudsInTheStation <= 0.5) {
+		} else if (noClouds) {
 			// Not enough clouds. So will be a sunny day
 			weatherCondition = WeatherCondition.SUNNY;
-		} else if (probablityOfCloudsInTheStation > 0.5 && probablityOfCloudsInTheStation <= 0.75) {
+		} else if (notEnoughCloudsToStartRain) {
 			// Clouds are there. But not enough to start rain.
 			weatherCondition = WeatherCondition.CLOUDY;
-		} else if (probablityOfCloudsInTheStation > 0.75 && probablityOfCloudsInTheStation <= 1) {
+		} else if (rainStarted) {
 			// Lots of cloud and it will be raining.
 			weatherCondition = WeatherCondition.RAIN;
 		}
